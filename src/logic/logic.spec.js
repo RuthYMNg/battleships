@@ -1,9 +1,11 @@
 const expect = require('chai').expect;
-const generateGrid = require('./logic.js').generateGrid
-const createGame = require('./logic.js').createGame
-const generateRandomCoordinates = require('./logic.js').generateRandomCoordinates
-const checkBoats = require('./logic.js').checkBoats
-const updateGrid = require('./logic.js').updateGrid
+const generateGrid = require('./generateGrid.js');
+const createGame = require('./createGame.js')
+const generateRandomCoordinates = require('./generateRandomCoordinates.js');
+const checkBoats = require('./checkBoats.js');
+const updateGrid = require('./updateGrid.js');
+const tryToPlace = require('./tryToPlace.js');
+const fire = require('./fire.js');
 
 describe('generateGrid', () => {
     it('is a function', () => {
@@ -53,11 +55,11 @@ describe('createGame', () => {
         expect(typeof createGame()).to.equal('object');
     });
     it('returns a 10x10 grid when given no inputs', () => {
-        expect(createGame().grid.length).to.equal(10);
+        expect(createGame().playerA.length).to.equal(10);
     });
     it('returns a 10x10 grid if the grid is too small', () => {
-        expect(createGame([[[], [], [], [], [], [], [], [], [], []], [[], [], [], [], [], [], [], [], [], []]]).grid.length).to.equal(10);
-        expect(createGame([[], [], [], [], [], [], [], [], [], []]).grid.length).to.equal(10);
+        expect(createGame([[[], [], [], [], [], [], [], [], [], []], [[], [], [], [], [], [], [], [], [], []]]).playerA.length).to.equal(10);
+        expect(createGame([[], [], [], [], [], [], [], [], [], []]).playerA.length).to.equal(10);
     });
     it('returns a grid with 5 ships when given no inputs', () => {
         expect(createGame().boats.length).to.equal(5);
@@ -77,8 +79,9 @@ describe('createGame', () => {
                 length: 2
             },
         ]
-        const fakeGame = generateGrid()
-        expect(createGame(fakeGame, threeBoats).boats.length).to.equal(3);
+        const fakeGameA = generateGrid()
+        const fakeGameB = generateGrid()
+        expect(createGame(fakeGameA, fakeGameB, threeBoats).boats.length).to.equal(3);
     });
     it('creates a grid which matches the ships', () => {
         const boats = [
@@ -95,12 +98,13 @@ describe('createGame', () => {
                 length: 2
             },
         ]
-        const fakeGame = generateGrid()
-        const game = createGame(fakeGame, boats);
+        const fakeGameA = generateGrid()
+        const fakeGameB = generateGrid()
+        const game = createGame(fakeGameA, fakeGameB, boats);
         const countOfBoats = boats.reduce((acc, boat) => {
             return acc + boat.length;
         }, 0)
-        const countInGrid = game.grid.reduce((acc, row) => {
+        const countInGrid = game.playerA.reduce((acc, row) => {
             return acc + row.reduce((acc2, cell) => {
                 return cell.isShip ? acc2 + 1 : acc2;
             }, 0);
@@ -239,5 +243,39 @@ describe('checkBoats', () => {
             }
         ];
         expect(checkBoats(lotsOfBoats).length < 8).to.equal(true);
+    });
+});
+
+describe('fire', () => {
+    it('is a function', () => {
+        expect(fire).to.be.a('function');
+    });
+    it('returns null if no player', () => {
+        expect(fire(null, generateGrid(), 0, 0)).to.equal(null);
+    });
+    it('returns null if no grid', () => {
+        expect(fire('A', null, 0, 0)).to.equal(null);
+    });
+    it('returns null if no grid length', () => {
+        expect(fire('A', [], 0, 0)).to.equal(null);
+    });
+    it('returns null if x is invalid', () => {
+        expect(fire('A', generateGrid(), 11, 0)).to.equal(null);
+    });
+    it('returns null if y is invalid', () => {
+        expect(fire('A', generateGrid(), 0, 11)).to.equal(null);
+    });
+    it('fires the right cell', () => {
+        expect(fire('A', generateGrid(), 0, 0).grid[0][0].isDiscovered).to.equal(true);
+        expect(fire('A', generateGrid(), 6, 2).grid[2][6].isDiscovered).to.equal(true);
+        expect(fire('A', generateGrid(), 6, 2).grid[1][6].isDiscovered).to.equal(false);
+        expect(fire('A', generateGrid(20, 20), 19, 19).grid[19][19].isDiscovered).to.equal(true);
+    });
+    it('returns an object if all present and correct', () => {
+        expect(typeof fire('A', generateGrid(), 0, 0)).to.equal('object');
+    });
+    it('matches player input to player output', () => {
+        expect(fire('A', generateGrid(), 0, 0).player).to.equal('A');
+        expect(fire('B', generateGrid(), 0, 0).player).to.equal('B');
     });
 });
