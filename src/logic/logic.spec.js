@@ -32,30 +32,20 @@ describe('generateGrid', () => {
         expect(generateGrid()[0][0].isShip).to.be.a("boolean")
     });
     it('each cell has an isDiscovered boolean', () => {
-        expect(generateGrid()[0][0]).to.haveOwnProperty("isShip")
-        expect(generateGrid()[0][0].isShip).to.be.a("boolean")
+        expect(generateGrid()[0][0]).to.haveOwnProperty("isDiscovered")
+        expect(generateGrid()[0][0].isDiscovered).to.be.a("boolean")
+    });
+    it('each cell has a length property', () => {
+        expect(generateGrid()[0][0]).to.haveOwnProperty("length")
+        expect(generateGrid()[0][0].length).to.equal(null)
+    });
+    it('each cell has a name property', () => {
+        expect(generateGrid()[0][0]).to.haveOwnProperty("name")
+        expect(generateGrid()[0][0].name).to.equal(null)
     });
 });
 
 describe('createGame', () => {
-
-    const fakeGame = generateGrid()
-
-    const boats = [
-        {
-            name: "Carrier",
-            length: 5
-        },
-        {
-            name: "Submarine",
-            length: 3
-        },
-        {
-            name: "Destroyer",
-            length: 2
-        },
-    ]
-
     it('is a function', () => {
         expect(createGame).to.be.a('function');
     });
@@ -73,9 +63,39 @@ describe('createGame', () => {
         expect(createGame().boats.length).to.equal(5);
     });
     it('returns the right number of ships', () => {
-        expect(createGame(fakeGame, boats).boats.length).to.equal(3);
+        const threeBoats = [
+            {
+                name: "Carrier",
+                length: 5
+            },
+            {
+                name: "Submarine",
+                length: 3
+            },
+            {
+                name: "Destroyer",
+                length: 2
+            },
+        ]
+        const fakeGame = generateGrid()
+        expect(createGame(fakeGame, threeBoats).boats.length).to.equal(3);
     });
     it('creates a grid which matches the ships', () => {
+        const boats = [
+            {
+                name: "Carrier",
+                length: 5
+            },
+            {
+                name: "Submarine",
+                length: 3
+            },
+            {
+                name: "Destroyer",
+                length: 2
+            },
+        ]
+        const fakeGame = generateGrid()
         const game = createGame(fakeGame, boats);
         const countOfBoats = boats.reduce((acc, boat) => {
             return acc + boat.length;
