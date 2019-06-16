@@ -6,6 +6,7 @@ const checkBoats = require('./checkBoats.js');
 const updateGrid = require('./updateGrid.js');
 const tryToPlace = require('./tryToPlace.js');
 const fire = require('./fire.js');
+const computerStrategy = require('./computerStrategy.js');
 
 describe('generateGrid', () => {
     it('is a function', () => {
@@ -273,5 +274,14 @@ describe('fire', () => {
     });
     it('returns an array if all present and correct', () => {
         expect(Array.isArray(fire('A', generateGrid(), 0, 0))).to.equal('object');
+    });
+});
+
+describe('computerStrategy', () => {
+    it('is a function', () => {
+        expect(computerStrategy).to.be.a('function');
+    });
+    it('', () => {
+        
     });
 });

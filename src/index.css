@@ -32,3 +32,11 @@ code {
   align-content: center;
   margin: 0;
 }
+
+.red {
+  background-color: red
+}
+
+.blue {
+  background-color: aqua;
+}
