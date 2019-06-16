@@ -16,48 +16,66 @@ const generateGrid = function (width, height) {
     return result;
 }
 
-const createGame = function (grid) {
+const standardBoats = [
+    {
+        name: "Carrier",
+        length: 5
+    },
+    {
+        name: "Battleship",
+        length: 4
+    },
+    {
+        name: "Cruiser",
+        length: 3
+    },
+    {
+        name: "Submarine",
+        length: 3
+    },
+    {
+        name: "Destroyer",
+        length: 2
+    },
+]
 
-    if (!grid || !grid.length) {
+const checkBoats = function (boats) {
+    if (
+        !Array.isArray(boats) ||
+        boats.some(boat => typeof boat !== 'object') ||
+        boats.some(boat => !boat.length) || 
+        boats.some(boat => boat.length < 2) || 
+        boats.some(boat => boat.length > 6) ||
+        boats.length > 8
+    ) {
+        return standardBoats;
+    }
+    return boats;
+}
+
+const createGame = function (grid, boats) {
+
+    if (!grid || !grid.length || grid.length < 10 || grid.some(row => row.length < 10)) {
         grid = generateGrid();
     }
-    const boats = [
-        {
-            name: "Carrier",
-            length: 5
-        },
-        {
-            name: "Battleship",
-            length: 4
-        },
-        {
-            name: "Cruiser",
-            length: 3
-        },
-        {
-            name: "Submarine",
-            length: 3
-        },
-        {
-            name: "Destroyer",
-            length: 2
-        },
-    ]
 
+    boats = checkBoats(boats);
 
     boats.forEach(boat => {
         let go = true;
         while (go) {
             let result = tryToPlace(grid, boat)
             if (!!result) {
-                console.log(`Result is ${result.dir} ${result.x} ${result.y}`);
                 go = false;
                 grid = updateGrid(grid, result);
             } 
         }
     })
     console.log("FINALLY", grid);
-    return grid;
+    return {
+        grid: grid,
+        boats: boats
+    }
 }
 
 const tryToPlace = function (grid, boat) {
@@ -70,11 +88,9 @@ const tryToPlace = function (grid, boat) {
 
     if (randomDirection === 'up') {
         if (y - boat.length < 0) {
-            console.log('a');
             randomDirection = "right";
         } else {
             if (boat.length === 5) {
-                console.log('b');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip|| grid[x][y - 2].isShip|| grid[x][y - 2].isShip|| grid[x][y - 4].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -87,7 +103,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 4) {
-                console.log('c');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip|| grid[x][y - 2].isShip|| grid[x][y - 2].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -100,7 +115,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 3) {
-                console.log('d');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip|| grid[x][y - 2].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -113,7 +127,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 2) {
-                console.log('e');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -131,11 +144,9 @@ const tryToPlace = function (grid, boat) {
 
     if (randomDirection === 'right') {
         if (x + boat.length > grid[0].length) {
-            console.log('a');
             randomDirection = "down";
         } else {
             if (boat.length === 5) {
-                console.log('b');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip|| grid[x + 2][y].isShip|| grid[x + 3][y].isShip|| grid[x + 4][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -148,7 +159,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 4) {
-                console.log('c');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip|| grid[x + 1][y].isShip|| grid[x + 3][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -161,7 +171,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 3) {
-                console.log('d');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip|| grid[x + 2][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -174,7 +183,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 2) {
-                console.log('e');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -192,11 +200,9 @@ const tryToPlace = function (grid, boat) {
 
     if (randomDirection === 'down') {
         if (y + boat.length > grid.length) {
-            console.log('a');
             randomDirection = "left";
         } else {
             if (boat.length === 5) {
-                console.log('b');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip|| grid[x][y + 2].isShip|| grid[x][y + 3].isShip|| grid[x][y + 4].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -209,7 +215,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 4) {
-                console.log('c');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip|| grid[x][y + 2].isShip|| grid[x][y + 3].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -222,7 +227,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 3) {
-                console.log('d');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip|| grid[x][y + 2].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -235,7 +239,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 2) {
-                console.log('e');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -253,11 +256,9 @@ const tryToPlace = function (grid, boat) {
 
     if (randomDirection === 'left') {
         if (x - boat.length < 0) {
-            console.log('a');
             randomDirection = "up";
         } else {
             if (boat.length === 5) {
-                console.log('b');
                 if (grid[x][y].isShip || grid[x - 1][y].isShip|| grid[x - 2][y].isShip|| grid[x - 3][y].isShip|| grid[x - 4][y].isShip) {
                     randomDirection = "up";
                 } else { 
@@ -270,7 +271,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 4) {
-                console.log('c');
                 if (grid[x][y].isShip || grid[x - 1][y].isShip|| grid[x - 1][y].isShip|| grid[x - 3][y].isShip) {
                     randomDirection = "up";
                 } else { 
@@ -283,7 +283,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 3) {
-                console.log('d');
                 if (grid[x][y].isShip || grid[x - 1][y].isShip|| grid[x - 2][y].isShip) {
                     randomDirection = "up";
                 } else { 
@@ -296,7 +295,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 2) {
-                console.log('e');
                 if (grid[x][y].isShip || grid[x - 1][y].isShip) {
                     randomDirection = "up";
                 } else { 
@@ -314,11 +312,9 @@ const tryToPlace = function (grid, boat) {
 
     if (randomDirection === 'up') {
         if (y - boat.length < 0) {
-            console.log('a');
             randomDirection = "right";
         } else {
             if (boat.length === 5) {
-                console.log('b');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip|| grid[x][y - 2].isShip|| grid[x][y - 2].isShip|| grid[x][y - 4].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -331,7 +327,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 4) {
-                console.log('c');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip|| grid[x][y - 2].isShip|| grid[x][y - 2].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -344,7 +339,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 3) {
-                console.log('d');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip|| grid[x][y - 2].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -357,7 +351,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 2) {
-                console.log('e');
                 if (grid[x][y].isShip || grid[x][y - 1].isShip) {
                     randomDirection = "right";
                 } else { 
@@ -375,11 +368,9 @@ const tryToPlace = function (grid, boat) {
 
     if (randomDirection === 'right') {
         if (x + boat.length > grid[0].length) {
-            console.log('a');
             randomDirection = "down";
         } else {
             if (boat.length === 5) {
-                console.log('b');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip|| grid[x + 2][y].isShip|| grid[x + 3][y].isShip|| grid[x + 4][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -392,7 +383,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 4) {
-                console.log('c');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip|| grid[x + 1][y].isShip|| grid[x + 3][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -405,7 +395,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 3) {
-                console.log('d');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip|| grid[x + 2][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -418,7 +407,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 2) {
-                console.log('e');
                 if (grid[x][y].isShip || grid[x + 1][y].isShip) {
                     randomDirection = "down";
                 } else { 
@@ -436,11 +424,9 @@ const tryToPlace = function (grid, boat) {
 
     if (randomDirection === 'down') {
         if (y + boat.length > grid.length) {
-            console.log('a');
             randomDirection = "left";
         } else {
             if (boat.length === 5) {
-                console.log('b');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip|| grid[x][y + 2].isShip|| grid[x][y + 3].isShip|| grid[x][y + 4].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -453,7 +439,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 4) {
-                console.log('c');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip|| grid[x][y + 2].isShip|| grid[x][y + 3].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -466,7 +451,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 3) {
-                console.log('d');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip|| grid[x][y + 2].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -479,7 +463,6 @@ const tryToPlace = function (grid, boat) {
                     }
                 }
             } else if (boat.length === 2) {
-                console.log('e');
                 if (grid[x][y].isShip || grid[x][y + 1].isShip) {
                     randomDirection = "left";
                 } else { 
@@ -503,7 +486,6 @@ const updateGrid = function (grid, result) {
     if (result.dir === 'up') {
         console.log('up');
         for (let i = 0; i < result.boat.length; i++) {
-            console.log(i, result.x, result.y, grid[result.x-i]);
             grid[result.x][result.y - i].name = result.boat.name;
             grid[result.x][result.y - i].length = result.boat.length;
             grid[result.x][result.y - i].isShip = true;
@@ -511,7 +493,6 @@ const updateGrid = function (grid, result) {
     } else if (result.dir === 'right') {
         console.log('right');
         for (let i = 0; i < result.boat.length; i++) {
-            console.log(i, result.x, result.y, grid[result.x]);
             grid[result.x + i][result.y].name = result.boat.name;
             grid[result.x + i][result.y].length = result.boat.length;
             grid[result.x + i][result.y].isShip = true;
@@ -519,7 +500,6 @@ const updateGrid = function (grid, result) {
     } else if (result.dir === 'down') {
         console.log('down');
         for (let i = 0; i < result.boat.length; i++) {
-            console.log(i, result.x, result.y, grid[result.x+i]);
             grid[result.x][result.y + i].name = result.boat.name;
             grid[result.x][result.y + i].length = result.boat.length;
             grid[result.x][result.y + i].isShip = true;
@@ -527,7 +507,6 @@ const updateGrid = function (grid, result) {
     } else {
         console.log('left');
         for (let i = 0; i < result.boat.length; i++) {
-            console.log(i, result.x, result.y, grid[result.x]);
             grid[result.x - i][result.y].name = result.boat.name;
             grid[result.x - i][result.y].length = result.boat.length;
             grid[result.x - i][result.y].isShip = true;
@@ -545,5 +524,7 @@ const generateRandomCoordinates = function (width, height) {
 module.exports = {
     generateGrid: generateGrid,
     createGame: createGame,
-    generateRandomCoordinates: generateRandomCoordinates
+    generateRandomCoordinates: generateRandomCoordinates,
+    checkBoats: checkBoats,
+    updateGrid: updateGrid
 }
