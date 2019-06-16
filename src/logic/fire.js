@@ -1,18 +1,16 @@
 const fire = function (player, grid, x, y) {
+    let newGrid = JSON.parse(JSON.stringify(grid))
     if (
         !player ||
-        !grid ||
-        !grid.length ||
-        grid.some(row => row.length < x) ||
-        grid.length < y
+        !newGrid ||
+        !newGrid.length ||
+        newGrid.some(row => row.length < x) ||
+        newGrid.length < y
     ) {
         return null;
     }
-    grid[y][x].isDiscovered = true;
-    return {
-        player: player,
-        grid: grid
-    }
+    newGrid[y][x].isDiscovered = true;
+    return newGrid;
 }
 
 module.exports = fire;

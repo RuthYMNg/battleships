@@ -19,7 +19,7 @@ export class Game extends Component {
     }
     render() {
         return <div>
-                <div class='grid'>
+                <div className='grid'>
                     <h4>GRID A</h4>
                     <Grid 
                         width={this.state.width}
@@ -48,9 +48,10 @@ export class Game extends Component {
         })
     }
     fire(x, y) {
-        const enemyGrid = this.state.player === "A" ? this.state.gridB : this.state.gridA;
+        const enemyGrid = this.state.player === "A" ? this.state.gridB.slice() : this.state.gridA.slice();
         const enemyPlayer = this.state.player === "A" ? "B" : "A";
-        const firedGrid = fire(this.state.player, enemyGrid, x, y);
+        console.log(this.state.player, enemyGrid, x, y);
+        const firedGrid = fire(this.state.player, enemyGrid, y, x);
         if (enemyPlayer === "A") {
             this.setState({
                 player: enemyPlayer,
@@ -63,12 +64,6 @@ export class Game extends Component {
             })
         }
     }
-    // play () {
-    //     this.setState({
-    //         grid: generator(this.state.width, this.state.height, this.state.mines),
-    //         setup: false
-    //     })
-    // }
 }
 
 export default Game;

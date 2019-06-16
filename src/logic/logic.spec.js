@@ -266,16 +266,12 @@ describe('fire', () => {
         expect(fire('A', generateGrid(), 0, 11)).to.equal(null);
     });
     it('fires the right cell', () => {
-        expect(fire('A', generateGrid(), 0, 0).grid[0][0].isDiscovered).to.equal(true);
-        expect(fire('A', generateGrid(), 6, 2).grid[2][6].isDiscovered).to.equal(true);
-        expect(fire('A', generateGrid(), 6, 2).grid[1][6].isDiscovered).to.equal(false);
-        expect(fire('A', generateGrid(20, 20), 19, 19).grid[19][19].isDiscovered).to.equal(true);
+        expect(fire('A', generateGrid(), 0, 0)[0][0].isDiscovered).to.equal(true);
+        expect(fire('A', generateGrid(), 6, 2)[2][6].isDiscovered).to.equal(true);
+        expect(fire('A', generateGrid(), 6, 2)[1][6].isDiscovered).to.equal(false);
+        expect(fire('A', generateGrid(20, 20), 19, 19)[19][19].isDiscovered).to.equal(true);
     });
-    it('returns an object if all present and correct', () => {
-        expect(typeof fire('A', generateGrid(), 0, 0)).to.equal('object');
-    });
-    it('matches player input to player output', () => {
-        expect(fire('A', generateGrid(), 0, 0).player).to.equal('A');
-        expect(fire('B', generateGrid(), 0, 0).player).to.equal('B');
+    it('returns an array if all present and correct', () => {
+        expect(Array.isArray(fire('A', generateGrid(), 0, 0))).to.equal('object');
     });
 });

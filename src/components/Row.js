@@ -6,6 +6,7 @@ const Row = props => {
         return (
             <Cell 
                 key={'col' + i} 
+                row={props.row}
                 col={i}
                 cell={el}
                 fire={props.fire}

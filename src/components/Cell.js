@@ -8,7 +8,7 @@ const Cell = props => {
     } else if (props.cell.isShip) {
       return <p className='cell'>O</p>
     } else {
-      return <p className='cell'>.</p>
+      return <p className='cell' onClick={props.fire.bind(null, props.row, props.col)}>.</p>
     }
 };
 
