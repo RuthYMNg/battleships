@@ -4,7 +4,12 @@ import Cell from './Cell'
 const Row = props => {
     const cells = props.cells.map((el, i) => {
         return (
-            <Cell />
+            <Cell 
+                key={'col' + i} 
+                col={i}
+                cell={el}
+                fire={props.fire}
+            />
         )
     })
     return (

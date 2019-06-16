@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Grid from './Grid';
 import generateGrid from '../logic/generateGrid';
+import createGame from '../logic/createGame';
+import fire from '../logic/fire';
 
 export class Game extends Component {
     constructor (props) {
@@ -8,26 +10,58 @@ export class Game extends Component {
         this.state = {
             width: 10,
             height: 10, 
-            grid: generateGrid()
+            gridA: generateGrid(),
+            gridB: generateGrid(),
+            boats: [],
+            player: "A"
         };
-        // this.sweep = this.sweep.bind(this)
-        // this.play = this.play.bind(this)
-        // this.updateSize = this.updateSize.bind(this)
-        // this.updateDifficulty = this.updateDifficulty.bind(this)
-        // this.customise = this.customise.bind(this)
-        // this.updateWidth = this.updateWidth.bind(this)
-        // this.updateHeight = this.updateHeight.bind(this)
-        // this.updateMines = this.updateMines.bind(this)
-        // this.updateFlag = this.updateFlag.bind(this)
-        // this.reset = this.reset.bind(this)
-        // this.toggleInstructions = this.toggleInstructions.bind(this)
+        this.fire = this.fire.bind(this)
     }
     render() {
-        return <Grid 
-            width={this.state.width}
-            height={this.state.height}
-            grid={this.state.grid}
-        />
+        return <div>
+                <div class='grid'>
+                    <h4>GRID A</h4>
+                    <Grid 
+                        width={this.state.width}
+                        height={this.state.height}
+                        grid={this.state.gridA}
+                        fire={this.fire}
+                    />
+                </div>
+                <div class='grid'>
+                    <h4>GRID B</h4>
+                    <Grid
+                        width={this.state.width}
+                        height={this.state.height}
+                        grid={this.state.gridB}
+                        fire={this.fire}
+                    />
+                </div>
+            </div>
+    }
+    componentDidMount() {
+        const newGame = createGame(generateGrid(), generateGrid())
+        console.log(newGame);
+        this.setState({
+            gridA: newGame.playerA,
+            gridB: newGame.playerB
+        })
+    }
+    fire(x, y) {
+        const enemyGrid = this.state.player === "A" ? this.state.gridB : this.state.gridA;
+        const enemyPlayer = this.state.player === "A" ? "B" : "A";
+        const firedGrid = fire(this.state.player, enemyGrid, x, y);
+        if (enemyPlayer === "A") {
+            this.setState({
+                player: enemyPlayer,
+                gridA: firedGrid
+            })
+        } else {
+            this.setState({
+                player: enemyPlayer,
+                gridB: firedGrid
+            })
+        }
     }
     // play () {
     //     this.setState({
