@@ -12,8 +12,8 @@ const computerStrategy = function (strategyData, grid) {
 
 
         if (direction === 'up') {
-            let x = strategyData.lastHit[0] - 1
-            let y = strategyData.lastHit[1]
+            let x = strategyData.lastHit[0] 
+            let y = strategyData.lastHit[1] - 1
             if (strategyData.lastHit[1] === 0) {
                 direction = 'right'
             } else if (!grid[y][x].isDiscovered) {
@@ -38,8 +38,8 @@ const computerStrategy = function (strategyData, grid) {
         }
 
         if (direction === 'right') {
-            let x = strategyData.lastHit[0]
-            let y = strategyData.lastHit[1] + 1
+            let x = strategyData.lastHit[0] + 1
+            let y = strategyData.lastHit[1]
             if (strategyData.lastHit[0] === grid[0].length - 1) {
                 direction = 'down'
             } else if (!grid[y][x].isDiscovered) {
@@ -66,8 +66,8 @@ const computerStrategy = function (strategyData, grid) {
         }
 
         if (direction === 'down') {
-            let x = strategyData.lastHit[0] + 1
-            let y = strategyData.lastHit[1]
+            let x = strategyData.lastHit[0]
+            let y = strategyData.lastHit[1] + 1
             if (strategyData.lastHit[1] === grid.length - 1) {
                 direction = 'left'
             } else if (!grid[y][x].isDiscovered) {
@@ -93,8 +93,8 @@ const computerStrategy = function (strategyData, grid) {
         }
 
         if (direction === 'left') {
-            let x = strategyData.lastHit[0]
-            let y = strategyData.lastHit[1] + 1
+            let x = strategyData.lastHit[0] - 1
+            let y = strategyData.lastHit[1]
             if (strategyData.lastHit[0] === 0) {
                 direction = 'up'
             } else if (!grid[y][x].isDiscovered) {
@@ -147,8 +147,8 @@ const computerStrategy = function (strategyData, grid) {
         }
 
         if (direction === 'right') {
-            let x = strategyData.lastHit[0]
-            let y = strategyData.lastHit[1] + 1
+            let x = strategyData.lastHit[0] + 1
+            let y = strategyData.lastHit[1]
             if (strategyData.lastHit[0] === grid[0].length - 1) {
                 direction = 'down'
             } else if (!grid[y][x].isDiscovered) {
@@ -175,8 +175,8 @@ const computerStrategy = function (strategyData, grid) {
         }
 
         if (direction === 'down') {
-            let x = strategyData.lastHit[0] + 1
-            let y = strategyData.lastHit[1]
+            let x = strategyData.lastHit[0]
+            let y = strategyData.lastHit[1] + 1
             if (strategyData.lastHit[1] === grid.length - 1) {
                 direction = 'left'
             } else if (!grid[y][x].isDiscovered) {
@@ -202,8 +202,8 @@ const computerStrategy = function (strategyData, grid) {
         }
 
         if (direction === 'left') {
-            let x = strategyData.lastHit[0]
-            let y = strategyData.lastHit[1] + 1
+            let x = strategyData.lastHit[0] - 1
+            let y = strategyData.lastHit[1]
             if (strategyData.lastHit[0] === 0) {
                 direction = 'up'
             } else if (!grid[y][x].isDiscovered) {

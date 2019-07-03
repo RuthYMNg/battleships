@@ -25,6 +25,7 @@ export class Game extends Component {
             win: false
         };
         this.fire = this.fire.bind(this)
+        this.reset = this.reset.bind(this)
     }
     render() {
         return <div>
@@ -50,7 +51,10 @@ export class Game extends Component {
                         win={this.state.win}
                         />
                 </div>
-                {this.state.win ? <p>WINNER</p> : <p>No winner</p>}
+                {this.state.win ? <div>
+                    <p>{this.state.win === "human" ? "You win!" : "The computer won :("}</p>
+                    <p className='button' onClick={this.reset}>Create a new game</p>
+                </div> : <p>no</p>}
             </div>
     }
     componentDidMount() {
@@ -63,7 +67,30 @@ export class Game extends Component {
         this.setState({
             gridA: newGame.playerA,
             gridB: newGame.playerB,
-            numberOfBoats: numberOfBoats
+            numberOfBoats: numberOfBoats,
+        })
+    }
+    reset () {
+        const newGame = createGame(generateGrid(), generateGrid())
+        const numberOfBoats = newGame.playerA.reduce((acc, row) => {
+            return acc + row.reduce((acc2, cell) => {
+                return cell.isShip ? acc2 + 1 : acc2;
+            }, 0)
+        }, 0);
+        this.setState({
+            gridA: newGame.playerA,
+            gridB: newGame.playerB,
+            numberOfBoats: numberOfBoats,
+            boats: [],
+            numberOfBoats: 0,
+            player: "A",
+            computerStrategy: {
+                hitStreak: false,
+                diagonal: false,
+                lastHit: [],
+                lastTry: []
+            },
+            win: false
         })
     }
     fire(x, y) {
@@ -75,9 +102,6 @@ export class Game extends Component {
                 return cell.isShip && cell.isDiscovered ? acc2 + 1 : acc2;
             }, 0)
         }, 0);
-        console.log('DISCOVERED ', numberOfDiscovered)
-        console.log('IN STATE ', this.state.numberOfBoats)
-
         if (enemyPlayer === "A") {
             this.setState({
                 player: enemyPlayer,
@@ -86,7 +110,9 @@ export class Game extends Component {
             })
             console.log('human has gone');
         } else {
-            this.computerGo();
+            if (numberOfDiscovered !== this.state.numberOfBoats) {
+                this.computerGo();
+            }
             this.setState({
                 player: "B",
                 gridB: firedGrid,
@@ -96,6 +122,7 @@ export class Game extends Component {
     }
     computerGo() {
         console.log('computer going');
+        console.log(this.state.win)
         if (this.state.win) {
             return;
         }
