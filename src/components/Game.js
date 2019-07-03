@@ -14,13 +14,15 @@ export class Game extends Component {
             gridA: generateGrid(),
             gridB: generateGrid(),
             boats: [],
+            numberOfBoats: 0,
             player: "A",
             computerStrategy: {
                 hitStreak: false,
                 diagonal: false,
                 lastHit: [],
                 lastTry: []
-            }
+            },
+            win: false
         };
         this.fire = this.fire.bind(this)
     }
@@ -29,50 +31,74 @@ export class Game extends Component {
                 <div className='grid'>
                     <h4>YOU</h4>
                     <Grid 
+                        player="human"
                         width={this.state.width}
                         height={this.state.height}
                         grid={this.state.gridA}
                         fire={this.fire}
-                    />
+                        win={this.state.win}
+                        />
                 </div>
                 <div class='grid'>
                     <h4>COMPUTER</h4>
                     <Grid
+                        player='computer'
                         width={this.state.width}
                         height={this.state.height}
                         grid={this.state.gridB}
                         fire={this.fire}
-                    />
+                        win={this.state.win}
+                        />
                 </div>
+                {this.state.win ? <p>WINNER</p> : <p>No winner</p>}
             </div>
     }
     componentDidMount() {
         const newGame = createGame(generateGrid(), generateGrid())
+        const numberOfBoats = newGame.playerA.reduce((acc, row) => {
+            return acc + row.reduce((acc2, cell) => {
+                return cell.isShip ? acc2 + 1 : acc2;
+            }, 0)
+        }, 0);
         this.setState({
             gridA: newGame.playerA,
-            gridB: newGame.playerB
+            gridB: newGame.playerB,
+            numberOfBoats: numberOfBoats
         })
     }
     fire(x, y) {
         const enemyGrid = this.state.player === "A" ? this.state.gridB.slice() : this.state.gridA.slice();
         const enemyPlayer = this.state.player === "A" ? "B" : "A";
         const firedGrid = fire(this.state.player, enemyGrid, y, x);
+        const numberOfDiscovered = firedGrid.reduce((acc, row) => {
+            return acc + row.reduce((acc2, cell) => {
+                return cell.isShip && cell.isDiscovered ? acc2 + 1 : acc2;
+            }, 0)
+        }, 0);
+        console.log('DISCOVERED ', numberOfDiscovered)
+        console.log('IN STATE ', this.state.numberOfBoats)
+
         if (enemyPlayer === "A") {
             this.setState({
                 player: enemyPlayer,
-                gridA: firedGrid
+                gridA: firedGrid,
+                win: numberOfDiscovered === this.state.numberOfBoats ? "human" : false
             })
             console.log('human has gone');
         } else {
             this.computerGo();
             this.setState({
                 player: "B",
-                gridB: firedGrid
+                gridB: firedGrid,
+                win: numberOfDiscovered === this.state.numberOfBoats ? "human" : false
             })
         }
     }
     computerGo() {
         console.log('computer going');
+        if (this.state.win) {
+            return;
+        }
         setTimeout(() => {
             let strategy = computerStrategy(this.state.computerStrategy, this.state.gridA)
             console.log('strategy is:');
@@ -84,9 +110,14 @@ export class Game extends Component {
             const firedGrid = fire(this.state.player, this.state.gridA.slice(), strategy.lastTry[0], strategy.lastTry[1])
             this.setState({
                 gridA: firedGrid,
-                player: "A"
+                player: "A",
+                win: firedGrid.reduce((acc, row) => {
+                    return acc + row.reduce((acc2, cell) => {
+                        return cell.isShip && cell.isDiscovered ? acc2 + 1 : acc2;
+                    }, 0)
+                }, 0) === this.state.numberOfBoats ? "computer" : false
             })
-        }, 1500)
+        }, 300)
     }
 }
 

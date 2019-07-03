@@ -10,6 +10,8 @@ const Row = props => {
                 col={i}
                 cell={el}
                 fire={props.fire}
+                player={props.player}
+                win={props.win}
             />
         )
     })
