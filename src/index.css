@@ -38,5 +38,70 @@ code {
 }
 
 .blue {
-  background-color: aqua;
+  background-color: #05bcde;
+}
+
+.gridContainer {
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+.button {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 200px;
+  padding: 5px 10px;
+  margin: 0 auto;
+}
+
+.selectedPlayer {
+  border: 2px solid black;
+  background-color: red;
+  text-align: center;
+  border-radius: 5px;
+  width: 200px;
+  padding: 5px 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.deselectedPlayer {
+  border: 2px solid white;
+  color: white;
+  border-radius: 5px;
+  width: 200px;
+  padding: 5px 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.carrier {
+  background-color: #9863ca;
+}
+
+.battleship {
+  background-color: #ca638d
+}
+
+.cruiser {
+  background-color: #63caaa
+}
+
+.submarine {
+  background-color: #63c9ca
+}
+
+.destroyer {
+  background-color: #c8ca63
+}
+
+.sea {
+  background-color: #a3e3ef8f
 }

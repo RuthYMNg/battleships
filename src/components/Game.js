@@ -29,8 +29,10 @@ export class Game extends Component {
     }
     render() {
         return <div>
+            <div className='gridContainer'>
                 <div className='grid'>
-                    <h4>YOU</h4>
+                    <h4>Your grid</h4>
+                    {this.state.player === 'B' ? <h4 className='selectedPlayer'>Computer is firing...</h4> : <h4 className='deselectedPlayer'>Computer is firing...</h4>}
                     <Grid 
                         player="human"
                         width={this.state.width}
@@ -41,7 +43,8 @@ export class Game extends Component {
                         />
                 </div>
                 <div class='grid'>
-                    <h4>COMPUTER</h4>
+                <h4>Computer's grid</h4>
+                    {this.state.player === 'A' ? <h4 className='selectedPlayer'>Choose where to fire!</h4> : <h4 className='deselectedPlayer'>Choose where to fire!</h4>}
                     <Grid
                         player='computer'
                         width={this.state.width}
@@ -51,11 +54,12 @@ export class Game extends Component {
                         win={this.state.win}
                         />
                 </div>
-                {this.state.win ? <div>
-                    <p>{this.state.win === "human" ? "You win!" : "The computer won :("}</p>
-                    <p className='button' onClick={this.reset}>Create a new game</p>
-                </div> : <p>no</p>}
             </div>
+            {this.state.win ? <div>
+                <p>{this.state.win === "human" ? "You win!" : "The computer won :("}</p>
+                <p className='button' onClick={this.reset}>Create a new game</p>
+            </div> : this.state.player === 'A' ? <h4 className='selectedPlayer'>Your turn</h4> : <h4 className='selectedPlayer'>Computer thinking</h4>}
+        </div>
     }
     componentDidMount() {
         const newGame = createGame(generateGrid(), generateGrid())
@@ -126,6 +130,8 @@ export class Game extends Component {
         if (this.state.win) {
             return;
         }
+        const timer = 500 + Math.random() * 1000;
+        console.log(timer)
         setTimeout(() => {
             let strategy = computerStrategy(this.state.computerStrategy, this.state.gridA)
             console.log('strategy is:');
@@ -144,7 +150,7 @@ export class Game extends Component {
                     }, 0)
                 }, 0) === this.state.numberOfBoats ? "computer" : false
             })
-        }, 300)
+        }, timer)
     }
 }
 
