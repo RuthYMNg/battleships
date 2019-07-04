@@ -45,11 +45,11 @@ const Cell = props => {
     } else if (props.cell.isDiscovered) {
       return <p className='cell blue'></p>
     } else if (props.cell.isShip && props.player === 'computer') {
-      return <p className='cell sea' onClick={props.fire.bind(null, props.row, props.col)}>.</p>
+      return <p className='cell cell-hover sea' onClick={props.fire.bind(null, props.row, props.col)}>.</p>
     } else if (props.player === 'computer') {
-      return <p className='cell sea' onClick={props.fire.bind(null, props.row, props.col)}></p>
+      return <p className='cell cell-hover sea' onClick={props.fire.bind(null, props.row, props.col)}></p>
     } else if (props.cell.isShip) {
-      return <p className='cell'>.</p>
+      return <p className='cell cell-hover'>.</p>
     } else {
       return <p className='cell sea'></p>
     }

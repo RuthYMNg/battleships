@@ -22,7 +22,8 @@ export class Game extends Component {
                 lastHit: [],
                 lastTry: []
             },
-            win: false
+            win: false,
+            setup: true
         };
         this.fire = this.fire.bind(this)
         this.reset = this.reset.bind(this)
@@ -32,7 +33,7 @@ export class Game extends Component {
             <div className='gridContainer'>
                 <div className='grid'>
                     <h4>Your grid</h4>
-                    {this.state.player === 'B' ? <h4 className='selectedPlayer'>Computer is firing...</h4> : <h4 className='deselectedPlayer'>Computer is firing...</h4>}
+                    {this.state.player === 'B' ? <h5 className='selectedPlayer'>Computer is firing...</h5> : <h5 className='deselectedPlayer'>Computer is firing...</h5>}
                     <Grid 
                         player="human"
                         width={this.state.width}
@@ -42,9 +43,9 @@ export class Game extends Component {
                         win={this.state.win}
                         />
                 </div>
-                <div class='grid'>
+                <div className='grid'>
                 <h4>Computer's grid</h4>
-                    {this.state.player === 'A' ? <h4 className='selectedPlayer'>Choose where to fire!</h4> : <h4 className='deselectedPlayer'>Choose where to fire!</h4>}
+                    {this.state.player === 'A' ? <h5 className='selectedPlayer'>Choose where to fire!</h5> : <h5 className='deselectedPlayer'>Choose where to fire!</h5>}
                     <Grid
                         player='computer'
                         width={this.state.width}
@@ -58,7 +59,7 @@ export class Game extends Component {
             {this.state.win ? <div>
                 <p>{this.state.win === "human" ? "You win!" : "The computer won :("}</p>
                 <p className='button' onClick={this.reset}>Create a new game</p>
-            </div> : this.state.player === 'A' ? <h4 className='selectedPlayer'>Your turn</h4> : <h4 className='selectedPlayer'>Computer thinking</h4>}
+            </div> : this.state.player === 'A' ? <h5 className='selectedPlayer'>Your turn</h5> : <h4 className='selectedPlayer'>Computer thinking</h4>}
         </div>
     }
     componentDidMount() {
@@ -86,7 +87,6 @@ export class Game extends Component {
             gridB: newGame.playerB,
             numberOfBoats: numberOfBoats,
             boats: [],
-            numberOfBoats: 0,
             player: "A",
             computerStrategy: {
                 hitStreak: false,
@@ -125,16 +125,16 @@ export class Game extends Component {
         }
     }
     computerGo() {
-        console.log('computer going');
-        console.log(this.state.win)
+        console.log('Beginning of computer go and this.state.win is ' + this.state.win);
+        console.log('Here is the state.');
+        console.log(this.state);
         if (this.state.win) {
             return;
         }
         const timer = 500 + Math.random() * 1000;
-        console.log(timer)
         setTimeout(() => {
             let strategy = computerStrategy(this.state.computerStrategy, this.state.gridA)
-            console.log('strategy is:');
+            console.log('The strategy is:');
             console.log(strategy);
             this.setState({
                 computerStrategy: strategy
