@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Grid from './Grid';
+import Setup from './Setup';
 import generateGrid from '../logic/generateGrid';
 import createGame from '../logic/createGame';
 import fire from '../logic/fire';
@@ -29,6 +30,9 @@ export class Game extends Component {
         this.reset = this.reset.bind(this)
     }
     render() {
+        if (this.state.setup) {
+            return <Setup />
+        }
         return <div>
             <div className='gridContainer'>
                 <div className='grid'>
@@ -62,7 +66,7 @@ export class Game extends Component {
             </div> : this.state.player === 'A' ? <h5 className='selectedPlayer'>Your turn</h5> : <h4 className='selectedPlayer'>Computer thinking</h4>}
         </div>
     }
-    componentDidMount() {
+    setup() {
         const newGame = createGame(generateGrid(), generateGrid())
         const numberOfBoats = newGame.playerA.reduce((acc, row) => {
             return acc + row.reduce((acc2, cell) => {
