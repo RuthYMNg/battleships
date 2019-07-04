@@ -78,6 +78,7 @@ const Setup = props => {
                 </div>
             </div>
         </div>
+        <p className='button mt-30'>Start Game</p>
     </div>
 };
 

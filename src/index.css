@@ -203,3 +203,7 @@ p {
   background-color: #a3e3ef8f;
   cursor: pointer;
 }
+
+.mt-30 {
+  margin-top: 30px;
+}

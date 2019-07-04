@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from './Grid';
 import Setup from './Setup';
+import standardBoats from '../logic/standardBoats';
 import generateGrid from '../logic/generateGrid';
 import createGame from '../logic/createGame';
 import fire from '../logic/fire';
@@ -14,7 +15,7 @@ export class Game extends Component {
             height: 10, 
             gridA: generateGrid(),
             gridB: generateGrid(),
-            boats: [],
+            boats: standardBoats,
             numberOfBoats: 0,
             player: "A",
             computerStrategy: {
@@ -24,7 +25,15 @@ export class Game extends Component {
                 lastTry: []
             },
             win: false,
-            setup: true
+            setup: true,
+            setupSize: 10,
+            setupBoats: {
+                carrier: 1,
+                battleship: 1,
+                cruiser: 1,
+                submarine: 1,
+                destroyer: 1
+            }
         };
         this.fire = this.fire.bind(this)
         this.reset = this.reset.bind(this)
