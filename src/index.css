@@ -83,6 +83,14 @@ code {
   margin: 0;
 }
 
+.cell img {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.cell p {
+  margin-top: 6px;
+}
 .red {
   background-color: #b12929;
 }
@@ -159,7 +167,7 @@ p {
 }
 
 .submarine {
-  background-color: #63c9ca
+  background-color: #297d98
 }
 
 .destroyer {
