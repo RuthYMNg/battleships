@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from './Grid';
 import Setup from './Setup';
 import standardBoats from '../logic/standardBoats';
+import boatsObject from '../logic/boatsObject';
 import generateGrid from '../logic/generateGrid';
 import createGame from '../logic/createGame';
 import fire from '../logic/fire';
@@ -78,6 +79,10 @@ export class Game extends Component {
             />
         }
         return <div>
+            {this.state.win ? <div class="pyro">
+    <div class="before"></div>
+    <div class="after"></div>
+</div> : <p></p>}
             <div className='gridContainer'>
                 <div className='grid'>
                     <h4>Your grid</h4>
@@ -111,7 +116,13 @@ export class Game extends Component {
         </div>
     }
     setup() {
-        const newGame = createGame(generateGrid(), generateGrid())
+        let newBoats = Object.entries(Object.assign(this.state.setupBoats)).reduce((acc, boat) => {
+            for (let i = 0; i < boat[1].number; i++) {
+                acc.push(boatsObject[boat[0]]);
+            }
+            return acc;
+        }, []);
+        const newGame = createGame(generateGrid(this.state.setupSize, this.state.setupSize), generateGrid(this.state.setupSize, this.state.setupSize), newBoats)
         const numberOfBoats = newGame.playerA.reduce((acc, row) => {
             return acc + row.reduce((acc2, cell) => {
                 return cell.isShip ? acc2 + 1 : acc2;
@@ -143,7 +154,8 @@ export class Game extends Component {
                 lastHit: [],
                 lastTry: []
             },
-            win: false
+            win: false,
+            setup: true
         })
     }
     fire(x, y) {
@@ -212,7 +224,6 @@ export class Game extends Component {
             return acc + boat[1].number
         }, 0);
         if (checkNumber < 3 && direction === 'down') {
-            console.log('A');
             for (let boat in boats) {
                 boats[boat].minReached = true
             }
@@ -221,14 +232,13 @@ export class Game extends Component {
             })
             return;
         } else if (checkNumber < 3 && direction === 'up') {
-            console.log('B');
             for (let boat in boats) {
                 if (boats[boat].number !== 0) {
                     boats[boat].minReached = false
                 }
             }
         }
-        if (checkNumber > 8 && direction === 'up') {
+        if (checkNumber > 9 && direction === 'up') {
             for (let boat in boats) {
                 boats[boat].maxReached = true
             }

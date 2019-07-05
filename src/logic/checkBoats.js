@@ -28,7 +28,7 @@ const checkBoats = function (boats) {
         boats.some(boat => !boat.length) || 
         boats.some(boat => boat.length < 2) || 
         boats.some(boat => boat.length > 6) ||
-        boats.length > 8
+        boats.length > 10
     ) {
         return standardBoats;
     }

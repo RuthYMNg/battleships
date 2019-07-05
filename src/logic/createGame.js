@@ -5,10 +5,10 @@ const tryToPlace = require('./tryToPlace.js');
 
 const createGame = function (gridA, gridB, boats) {
 
-    if (!gridA || !gridA.length || gridA.length < 10 || gridA.some(row => row.length < 10)) {
+    if (!gridA || !gridA.length || gridA.length < 8 || gridA.some(row => row.length < 8)) {
         gridA = generateGrid();
     }
-    if (!gridB || !gridB.length || gridB.length < 10 || gridB.some(row => row.length < 10)) {
+    if (!gridB || !gridB.length || gridB.length < 8 || gridB.some(row => row.length < 8)) {
         gridB = generateGrid();
     }
 
