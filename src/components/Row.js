@@ -12,6 +12,7 @@ const Row = props => {
                 fire={props.fire}
                 player={props.player}
                 win={props.win}
+                turn={props.turn}
             />
         )
     })

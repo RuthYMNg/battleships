@@ -17,7 +17,7 @@ const Setup = props => {
             </div>
         </div>
         <div>
-            <h4 className='center'>Boats</h4>
+            <h4 className='center'>Ships</h4>
             <div className='boat-list'>
                 <div className='boat-info'>
                     <div className='setup-bar boat-container'>
@@ -89,6 +89,7 @@ const Setup = props => {
             </div>
         </div>
         <p className='button mt-30' onClick={props.setup}>Start Game</p>
+        <p className='button little-button mt-30' onClick={props.toggleInstructions}>How To Play</p>
     </div>
 };
 

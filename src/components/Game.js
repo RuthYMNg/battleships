@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from './Grid';
 import Setup from './Setup';
+import Instructions from './Instructions';
 import standardBoats from '../logic/standardBoats';
 import boatsObject from '../logic/boatsObject';
 import generateGrid from '../logic/generateGrid';
@@ -60,15 +61,22 @@ export class Game extends Component {
                     maxReached: false
                 }
             },
-            setupOK: true
+            setupOK: true,
+            instructions: false
         };
         this.fire = this.fire.bind(this)
         this.reset = this.reset.bind(this)
         this.setup = this.setup.bind(this)
         this.updateGridSize = this.updateGridSize.bind(this)
         this.updateBoats = this.updateBoats.bind(this)
+        this.toggleInstructions = this.toggleInstructions.bind(this)
     }
     render() {
+        if (this.state.instructions) {
+            return <Instructions 
+                toggleInstructions={this.toggleInstructions}
+            />
+        }
         if (this.state.setup) {
             return <Setup 
                 updateGridSize={this.updateGridSize}     
@@ -76,6 +84,7 @@ export class Game extends Component {
                 size={this.state.setupSize}  
                 boats={this.state.setupBoats}
                 setup={this.setup}
+                toggleInstructions={this.toggleInstructions}
             />
         }
         return <div>
@@ -86,7 +95,7 @@ export class Game extends Component {
             <div className='gridContainer'>
                 <div className='grid'>
                     <h4>Your grid</h4>
-                    {this.state.player === 'B' ? <h5 className='selectedPlayer'>Computer is firing...</h5> : <h5 className='deselectedPlayer'>Computer is firing...</h5>}
+                    {this.state.player === 'B' ? this.state.win ? <h5 className='deselectedPlayer'>Computer is firing...</h5> : <h5 className='selectedPlayer'>Computer is firing...</h5> : <h5 className='deselectedPlayer'>Computer is firing...</h5>}
                     <Grid 
                         player="human"
                         width={this.state.width}
@@ -94,6 +103,7 @@ export class Game extends Component {
                         grid={this.state.gridA}
                         fire={this.fire}
                         win={this.state.win}
+                        turn={this.state.player}
                         />
                 </div>
                 <div className='grid'>
@@ -106,13 +116,15 @@ export class Game extends Component {
                         grid={this.state.gridB}
                         fire={this.fire}
                         win={this.state.win}
+                        turn={this.state.player}
                         />
                 </div>
             </div>
             {this.state.win ? <div>
                 <p>{this.state.win === "human" ? "You win!" : "The computer won :("}</p>
                 <p className='button' onClick={this.reset}>Create a new game</p>
-            </div> : this.state.player === 'A' ? <h5 className='selectedPlayer'>Your turn</h5> : <h4 className='selectedPlayer'>Computer thinking</h4>}
+            </div> : this.state.player === 'A' ? <h5 className='selectedPlayer'>Your turn</h5> : <h5 className='selectedPlayer'>Computer thinking</h5>}
+            {this.state.win ? <div></div> : <h5 className='button center' onClick={this.reset}>Quit</h5>}
         </div>
     }
     setup() {
@@ -184,6 +196,11 @@ export class Game extends Component {
                 win: numberOfDiscovered === this.state.numberOfBoats ? "human" : false
             })
         }
+    }
+    toggleInstructions () {
+        this.setState({
+            instructions: !this.state.instructions
+        })
     }
     computerGo() {
         console.log('Beginning of computer go and this.state.win is ' + this.state.win);

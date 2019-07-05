@@ -125,7 +125,7 @@ const computerStrategy = function (strategyData, grid) {
             let y = strategyData.lastHit[1]
             if (strategyData.lastHit[1] === 0) {
                 direction = 'right'
-            } else if (!grid[y][x].isDiscovered) {
+            } else if (!grid[y][x].isDiscovered) { //TODO: catch this in case does not exist
                 if (grid[y][x].isShip) {
                     return {
                         hitStreak: true,

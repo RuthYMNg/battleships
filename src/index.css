@@ -18,7 +18,7 @@ h1 {
   font-family: 'Russo One';
   font-size: 70px;
   font-weight: normal;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 h2 {
@@ -31,6 +31,8 @@ h3 {
 
 h4 {
   font-size: 25px;
+  margin-bottom: 15px;
+  margin-top: 20px;
 }
 
 h5 {
@@ -110,6 +112,10 @@ p {
     background-color: #a3e3ef8f;
 }
 
+.little-button {
+  width: 130px;
+}
+
 .selectedPlayer {
   border: 2px solid #005982;
   background-color: #b12929;
@@ -118,7 +124,7 @@ p {
   width: 200px;
   padding: 8px 10px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .deselectedPlayer {
@@ -128,7 +134,12 @@ p {
   width: 200px;
   padding: 5px 10px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+.instructions {
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 .carrier {
@@ -184,7 +195,7 @@ p {
 .boat-info {
   display: flex;
   flex-direction: column;
-  padding: 10px;  
+  padding: 0 10px 10px 10px;  
   align-items: center;
 }
 
@@ -241,7 +252,7 @@ p {
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden; }
+}
 
 .pyro > .before, .pyro > .after {
   position: absolute;
