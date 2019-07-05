@@ -28,19 +28,54 @@ export class Game extends Component {
             setup: true,
             setupSize: 10,
             setupBoats: {
-                carrier: 1,
-                battleship: 1,
-                cruiser: 1,
-                submarine: 1,
-                destroyer: 1
-            }
+                carrier: {
+                    number: 1,
+                    max: 2,
+                    minReached: false,
+                    maxReached: false
+                },
+                battleship: {
+                    number: 1,
+                    max: 3,
+                    minReached: false,
+                    maxReached: false
+                },
+                cruiser: {
+                    number: 1,
+                    max: 3,
+                    minReached: false,
+                    maxReached: false
+                },
+                submarine: {
+                    number: 1,
+                    max: 3,
+                    minReached: false,
+                    maxReached: false
+                },
+                destroyer: {
+                    number: 1,
+                    max: 5,
+                    minReached: false,
+                    maxReached: false
+                }
+            },
+            setupOK: true
         };
         this.fire = this.fire.bind(this)
         this.reset = this.reset.bind(this)
+        this.setup = this.setup.bind(this)
+        this.updateGridSize = this.updateGridSize.bind(this)
+        this.updateBoats = this.updateBoats.bind(this)
     }
     render() {
         if (this.state.setup) {
-            return <Setup />
+            return <Setup 
+                updateGridSize={this.updateGridSize}     
+                updateBoats={this.updateBoats}   
+                size={this.state.setupSize}  
+                boats={this.state.setupBoats}
+                setup={this.setup}
+            />
         }
         return <div>
             <div className='gridContainer'>
@@ -86,6 +121,7 @@ export class Game extends Component {
             gridA: newGame.playerA,
             gridB: newGame.playerB,
             numberOfBoats: numberOfBoats,
+            setup: false
         })
     }
     reset () {
@@ -164,6 +200,65 @@ export class Game extends Component {
                 }, 0) === this.state.numberOfBoats ? "computer" : false
             })
         }, timer)
+    }
+    updateGridSize (newSize) {
+        this.setState({
+            setupSize: newSize
+        })
+    }
+    updateBoats (boat, direction) {
+        let boats = Object.assign(this.state.setupBoats)
+        let checkNumber = Object.entries(boats).reduce((acc, boat) => {
+            return acc + boat[1].number
+        }, 0);
+        if (checkNumber < 3 && direction === 'down') {
+            console.log('A');
+            for (let boat in boats) {
+                boats[boat].minReached = true
+            }
+            this.setState({
+                setupOK: 'small'
+            })
+            return;
+        } else if (checkNumber < 3 && direction === 'up') {
+            console.log('B');
+            for (let boat in boats) {
+                if (boats[boat].number !== 0) {
+                    boats[boat].minReached = false
+                }
+            }
+        }
+        if (checkNumber > 8 && direction === 'up') {
+            for (let boat in boats) {
+                boats[boat].maxReached = true
+            }
+            this.setState({
+                setupOK: 'big'
+            })
+            return;
+        } else {
+            for (let boat in boats) {
+                if (boats[boat].number !== boats[boat].max) {
+                    boats[boat].maxReached = false
+                }
+            }
+        }
+        if (this.state.setupOK) {
+            boats[boat].number = direction === 'up' ? boats[boat].number !== boats[boat].max ? boats[boat].number + 1 : boats[boat].number : boats[boat].number - 1 < 0 ? 0 : boats[boat].number - 1;
+            if (boats[boat].number === boats[boat].max) {
+                boats[boat].maxReached = true;
+            } else {
+                boats[boat].maxReached = false;
+            }
+            if (boats[boat].number === 0) {
+                boats[boat].minReached = true;
+            } else {
+                boats[boat].minReached = false;
+            }
+        }
+        this.setState({
+            setupBoats: boats
+        })
     }
 }
 

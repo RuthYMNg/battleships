@@ -12,6 +12,8 @@ const Cell = props => {
       return <p className='cell submarine'>S</p>
     } else if (props.cell.name === "Destroyer") {
       return <p className='cell destroyer'>D</p>
+    } else if (props.cell.isDiscovered) {
+      return <p className='cell blue'></p>
     } else {
       return <p className='cell sea'></p>
     }

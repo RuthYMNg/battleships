@@ -207,3 +207,19 @@ p {
 .mt-30 {
   margin-top: 30px;
 }
+
+.active-size {
+  background-color: #b12929;
+}
+
+.active-size:hover {
+  background-color: #b12929;
+}
+
+.active-arrow {
+  color: grey;
+}
+
+.active-size:hover {
+  color: grey;
+}
