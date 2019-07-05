@@ -4,20 +4,18 @@ import propTypes from 'prop-types';
 const Setup = props => {
     return <div className='setup'>
         <div>
-            <h4 className='center'>Grid Size</h4>
+            <h4 className='center'>Select Ocean Size</h4>
+            <p>Number of squares wide and high</p>
             <div className='setup-bar'>
                 <div className={`size-number ${props.size === 8 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 8)}><p>8</p></div>
                 <div className={`size-number ${props.size === 9 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 9)}><p>9</p></div>
                 <div className={`size-number ${props.size === 10 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 10)}><p>10</p></div>
                 <div className={`size-number ${props.size === 11 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 11)}><p>11</p></div>
                 <div className={`size-number ${props.size === 12 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 12)}><p>12</p></div>
-                <div className={`size-number ${props.size === 13 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 13)}><p>13</p></div>
-                <div className={`size-number ${props.size === 14 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 14)}><p>14</p></div>
-                <div className={`size-number ${props.size === 15 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 15)}><p>15</p></div>
             </div>
         </div>
         <div>
-            <h4 className='center'>Ships</h4>
+            <h4 className='center'>Select Battleships</h4>
             <div className='boat-list'>
                 <div className='boat-info'>
                     <div className='setup-bar boat-container'>
