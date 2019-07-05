@@ -34,9 +34,9 @@ const Cell = props => {
       return <p className='cell blue'></p>
     } else if (props.cell.isShip && props.player === 'computer') {
       return <p className='cell' onClick={props.fire.bind(null, props.row, props.col)}>O</p>
-    } else if (props.player === 'computer') {
+    } else if (props.player === 'computer' && props.inDev) {
       return <p className='cell' onClick={props.fire.bind(null, props.row, props.col)}>.</p>
-    } else if (props.cell.isShip) {
+    } else if (props.cell.isShip && props.inDev) {
       return <p className='cell sea'>.</p>
     } else {
       return <p className='cell sea'></p>
@@ -46,11 +46,11 @@ const Cell = props => {
       return <p className='cell red'>X</p>
     } else if (props.cell.isDiscovered) {
       return <p className='cell blue'></p>
-    } else if (props.cell.isShip && props.player === 'computer') {
+    } else if (props.cell.isShip && props.player === 'computer' && props.inDev) {
       return <p className={`cell ${props.turn === 'A' ? 'cell-hover' : ''} sea`} onClick={props.turn === 'A' ? props.fire.bind(null, props.row, props.col) : null}>.</p>
     } else if (props.player === 'computer') {
       return <p className={`cell ${props.turn === 'A' ? 'cell-hover' : ''} sea`} onClick={props.turn === 'A' ? props.fire.bind(null, props.row, props.col) : null}></p>
-    } else if (props.cell.isShip) {
+    } else if (props.cell.isShip && props.inDev) {
       return <p className={`cell ${props.turn === 'A' ? 'cell-hover' : ''}`}>.</p>
     } else {
       return <p className='cell sea'></p>

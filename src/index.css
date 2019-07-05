@@ -247,7 +247,14 @@ p {
   color: grey !important;
 }
 
-
+#dev {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  float: right;
+  padding: 20px;
+  color: #316b86;
+}
 
 body {
   margin: 0;

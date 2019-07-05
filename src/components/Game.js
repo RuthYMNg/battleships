@@ -62,7 +62,8 @@ export class Game extends Component {
                 }
             },
             setupOK: true,
-            instructions: false
+            instructions: false,
+            inDev: false
         };
         this.fire = this.fire.bind(this)
         this.reset = this.reset.bind(this)
@@ -70,6 +71,7 @@ export class Game extends Component {
         this.updateGridSize = this.updateGridSize.bind(this)
         this.updateBoats = this.updateBoats.bind(this)
         this.toggleInstructions = this.toggleInstructions.bind(this)
+        this.toggleDev = this.toggleDev.bind(this)
     }
     render() {
         if (this.state.instructions) {
@@ -104,6 +106,7 @@ export class Game extends Component {
                         fire={this.fire}
                         win={this.state.win}
                         turn={this.state.player}
+                        inDev={this.state.inDev}
                         />
                 </div>
                 <div className='grid'>
@@ -117,6 +120,7 @@ export class Game extends Component {
                         fire={this.fire}
                         win={this.state.win}
                         turn={this.state.player}
+                        inDev={this.state.inDev}
                         />
                 </div>
             </div>
@@ -125,6 +129,7 @@ export class Game extends Component {
                 <p className='button' onClick={this.reset}>Create a new game</p>
             </div> : this.state.player === 'A' ? <h5 className='selectedPlayer'>Your turn</h5> : <h5 className='selectedPlayer'>Computer thinking</h5>}
             {this.state.win ? <div></div> : <h5 className='button center' onClick={this.reset}>Quit</h5>}
+            {this.state.inDev ? <p id='dev' onClick={this.toggleDev}>VIEW NORMAL</p> : <p id='dev' onClick={this.toggleDev}>VIEW IN DEV</p>}
         </div>
     }
     setup() {
@@ -200,6 +205,11 @@ export class Game extends Component {
     toggleInstructions () {
         this.setState({
             instructions: !this.state.instructions
+        })
+    }
+    toggleDev () {
+        this.setState({
+            inDev: !this.state.inDev
         })
     }
     computerGo() {
