@@ -222,11 +222,13 @@ p {
 }
 
 .icon i:hover {
-  color: #a3e3ef8f
+  color: #a3e3ef8f;
+  cursor: pointer;
 }
 
 .active-arrow i:hover {
   color: #476b7b !important;
+  cursor: pointer;
 }
 
 .size-number {
