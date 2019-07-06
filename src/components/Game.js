@@ -21,9 +21,8 @@ export class Game extends Component {
             numberOfBoats: 0,
             player: "A",
             computerStrategy: {
-                hitStreak: false,
-                diagonal: false,
-                lastHit: [],
+                next: [],
+                plan: [],
                 lastTry: []
             },
             win: false,
@@ -90,9 +89,9 @@ export class Game extends Component {
             />
         }
         return <div>
-            {this.state.win ? <div class="pyro">
-    <div class="before"></div>
-    <div class="after"></div>
+            {this.state.win ? <div className="pyro">
+    <div className="before"></div>
+    <div className="after"></div>
 </div> : <p></p>}
             <div className='gridContainer'>
                 <div className='grid'>
@@ -190,7 +189,6 @@ export class Game extends Component {
                 gridA: firedGrid,
                 win: numberOfDiscovered === this.state.numberOfBoats ? "human" : false
             })
-            console.log('human has gone');
         } else {
             if (numberOfDiscovered !== this.state.numberOfBoats) {
                 this.computerGo();
@@ -213,9 +211,7 @@ export class Game extends Component {
         })
     }
     computerGo() {
-        console.log('Beginning of computer go and this.state.win is ' + this.state.win);
-        console.log('Here is the state.');
-        console.log(this.state);
+        console.log('Computer is going.');
         if (this.state.win) {
             return;
         }
