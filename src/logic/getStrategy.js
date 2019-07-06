@@ -1,7 +1,8 @@
 
 const getStrategy = function (grid) {
     console.log('getting strategy');
-    let strategy = "randomDiagonal"
+    let strategy = "forwardDiagonal"
+
     if (strategy === "randomDiagonal") {
         let plan = [];
         let isEven = Math.random() < 0.5
@@ -10,19 +11,50 @@ const getStrategy = function (grid) {
             let isForwards = Math.random() < 0.5
             let aSet = Math.random() < 0.5
             isForwards 
-                ? aSet ? getRandomDiagonalForwardsASets(grid.length, sets, isEven, true).forEach((set) => {
+                ? aSet ? getDiagonalForwardsASets(grid.length, sets, isEven, true).forEach((set) => {
                     plan.push(set)
-                }) : getRandomDiagonalForwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
+                }) : getDiagonalForwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
                     plan.push(set)
                 })
-                : aSet ? getRandomDiagonalBackwardsASets(grid.length, sets, isEven, true).forEach((set) => {
+                : aSet ? getDiagonalBackwardsASets(grid.length, sets, isEven, true).forEach((set) => {
                     plan.push(set)
-                }) : getRandomDiagonalBackwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
+                }) : getDiagonalBackwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
                     plan.push(set)
                 })
         }
         return plan;
     }
+
+    if (strategy === "forwardDiagonal") {
+        let plan = [];
+        let isEven = Math.random() < 0.5
+        for (let i = 0; i < 10; i++) {
+            let sets = Math.round(Math.random() * 3) + 1;
+            let aSet = Math.random() < 0.5
+            aSet ? getDiagonalForwardsASets(grid.length, sets, isEven, true).forEach((set) => {
+                    plan.push(set)
+                }) : getDiagonalForwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
+                    plan.push(set)
+                })
+        }
+        return plan;
+    }
+
+    if (strategy === "backwardDiagonal") {
+        let plan = [];
+        let isEven = Math.random() < 0.5
+        for (let i = 0; i < 10; i++) {
+            let sets = Math.round(Math.random() * 3) + 1;
+            let aSet = Math.random() < 0.5
+            aSet ? getDiagonalBackwardsASets(grid.length, sets, isEven, true).forEach((set) => {
+                    plan.push(set)
+                }) : getDiagonalForwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
+                    plan.push(set)
+                })
+        }
+        return plan;
+    }
+
 }
 
 const strategyTypes = [
@@ -37,7 +69,7 @@ const strategyTypes = [
     "stepped"
 ]
 
-const getRandomDiagonalForwardsASets = function (length, sets, even, random) {
+const getDiagonalForwardsASets = function (length, sets, even, random) {
     let result = [];
     let startingPoint = Math.round(Math.random()) * length;
     for (let i = 0; i < sets; i++) {
@@ -59,7 +91,7 @@ const getRandomDiagonalForwardsASets = function (length, sets, even, random) {
     return result;
 }
 
-const getRandomDiagonalForwardsBSets = function (length, sets, even, random) {
+const getDiagonalForwardsBSets = function (length, sets, even, random) {
     let result = [];
     let startingPoint = Math.round(Math.random()) * length - 1;
     for (let i = 0; i < sets; i++) {
@@ -81,7 +113,7 @@ const getRandomDiagonalForwardsBSets = function (length, sets, even, random) {
     return result;
 }
 
-const getRandomDiagonalBackwardsASets = function (length, sets, even, random) {
+const getDiagonalBackwardsASets = function (length, sets, even, random) {
     let result = [];
     let startingPoint = Math.round(Math.random()) * length;
     for (let i = 0; i < sets; i++) {
@@ -103,7 +135,7 @@ const getRandomDiagonalBackwardsASets = function (length, sets, even, random) {
     return result;
 }
 
-const getRandomDiagonalBackwardsBSets = function (length, sets, even, random) {
+const getDiagonalBackwardsBSets = function (length, sets, even, random) {
     let result = [];
     let startingPoint = Math.round(Math.random()) * length;
     for (let i = 0; i < sets; i++) {

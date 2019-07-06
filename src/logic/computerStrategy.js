@@ -9,20 +9,21 @@ const format = {
 
 const computerStrategy = function (inputStrategy, grid) {
     let strategy = Object.assign(inputStrategy)
+    console.log(strategy);
     console.log('**********ENTERING COMP STRATEGY***************');
-    console.log('INPUT IS');
-    console.log(inputStrategy);
 
     if (strategy.next.length) {
         console.log('Trying next priority');
         let keepGoing = true;
         while (keepGoing && strategy.next.length) {
+            console.log('Next while');
             if (
                 strategy.next[0][0] >= 0 &&
                 strategy.next[0][1] >= 0 &&
                 strategy.next[0][0] < grid.length &&
                 strategy.next[0][1] < grid.length
             ) {
+                console.log("A");
                 if (!grid[strategy.next[0][1]][[strategy.next[0][0]]].isDiscovered) {
                     console.log(strategy.next);
                     if (grid[strategy.next[0][1]][[strategy.next[0][0]]].isShip) {
@@ -38,7 +39,7 @@ const computerStrategy = function (inputStrategy, grid) {
                         }
                         if (strategy.next[0][1] - 1 >= 0) {
                             if (!grid[strategy.next[0][1] - 1][[strategy.next[0][0]]].isDiscovered) {
-                                strategy.next.push([strategy.next[0][0], strategy.next[0][1] + 1])
+                                strategy.next.push([strategy.next[0][0], strategy.next[0][1] - 1])
                             }
                         }
                         if (strategy.next[0][1] + 1 < grid.length) {
@@ -47,13 +48,25 @@ const computerStrategy = function (inputStrategy, grid) {
                             }
                         }
                     }
-                    console.log('next while');
                     keepGoing = false;
                     let lastTry = strategy.next[0].slice();
                     strategy.next.shift();
+                    console.log(strategy.next);
                     strategy.lastTry = lastTry;
-                    console.log('Found a good fire');
+                    console.log('FIRING');
                     return strategy;
+                } else {
+                    console.log(1);
+                    strategy.next.shift();
+                    if (strategy.next.length === 1) {
+                        keepGoing = false;
+                    }
+                }
+            } else {
+                console.log(2);
+                strategy.next.shift();
+                if (strategy.next.length === 1) {
+                    keepGoing = false;
                 }
             }
         }
@@ -64,15 +77,17 @@ const computerStrategy = function (inputStrategy, grid) {
         console.log('THE PLAN IS');
         console.log(strategy.plan);
     }
+
     let keepGoing = true;
     while (keepGoing) {
+        console.log('looping in while');
         if (
             strategy.plan[0][0] >= 0 &&
             strategy.plan[0][1] >= 0 &&
             strategy.plan[0][0] < grid.length &&
             strategy.plan[0][1] < grid.length
         ) {
-            console.log('in while');
+            console.log('B');
             if (!grid[strategy.plan[0][1]][[strategy.plan[0][0]]].isDiscovered) {
                 if (grid[strategy.plan[0][1]][[strategy.plan[0][0]]].isShip) {
                     if (strategy.plan[0][0] - 1 >= 0) {
@@ -94,7 +109,13 @@ const computerStrategy = function (inputStrategy, grid) {
                 strategy.lastTry = lastTry;
                 console.log('Found a good fire');
                 return strategy;
+            } else {
+                console.log(3);
+                strategy.plan.shift();
             }
+        } else {
+            console.log(4);
+            strategy.plan.shift();
         }
     }
 }

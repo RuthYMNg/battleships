@@ -165,9 +165,8 @@ export class Game extends Component {
             boats: [],
             player: "A",
             computerStrategy: {
-                hitStreak: false,
-                diagonal: false,
-                lastHit: [],
+                next: [],
+                plan: [],
                 lastTry: []
             },
             win: false,
