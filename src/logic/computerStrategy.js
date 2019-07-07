@@ -78,6 +78,7 @@ const computerStrategy = function (inputStrategy, grid) {
             })
             return acc;
         }, []);
+        console.log(strategy.plan);
     }
 
     let keepGoing = true;

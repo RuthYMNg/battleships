@@ -1,7 +1,11 @@
-
 const getStrategy = function (grid) {
     console.log('getting strategy');
-    let strategy = "forwardDiagonal"
+    if (!grid) {
+        return [];
+    }
+
+    const random = Math.random();
+    let strategy =  random < 0.5 ? "randomDiagonal" : random < 0.75 ? "forwardDiagonal" : "backwardDiagonal";
 
     if (strategy === "randomDiagonal") {
         let plan = [];
@@ -31,6 +35,7 @@ const getStrategy = function (grid) {
         for (let i = 0; i < 10; i++) {
             let sets = Math.round(Math.random() * 3) + 1;
             let aSet = Math.random() < 0.5
+            console.log(aSet);
             aSet ? getDiagonalForwardsASets(grid.length, sets, isEven, true).forEach((set) => {
                     plan.push(set)
                 }) : getDiagonalForwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
@@ -46,6 +51,7 @@ const getStrategy = function (grid) {
         for (let i = 0; i < 10; i++) {
             let sets = Math.round(Math.random() * 3) + 1;
             let aSet = Math.random() < 0.5
+            console.log(aSet);
             aSet ? getDiagonalBackwardsASets(grid.length, sets, isEven, true).forEach((set) => {
                     plan.push(set)
                 }) : getDiagonalForwardsBSets(grid.length, sets, isEven, true).forEach((set) => {
