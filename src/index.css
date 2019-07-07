@@ -245,6 +245,14 @@ p {
   margin-top: 30px;
 }
 
+.mt-0 {
+  margin-top: 0px;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
+}
+
 .active-size {
   background-color: #b12929;
 }

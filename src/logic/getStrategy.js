@@ -54,7 +54,6 @@ const getStrategy = function (grid) {
         }
         return plan;
     }
-
 }
 
 const strategyTypes = [

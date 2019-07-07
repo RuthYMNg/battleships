@@ -3,9 +3,9 @@ import propTypes from 'prop-types';
 
 const Setup = props => {
     return <div className='setup'>
-        <div>
+        <div className='mb-50'>
             <h4 className='center'>Select Ocean Size</h4>
-            <p>Number of squares wide and high</p>
+            <p className='mt-0'>Number of squares wide and high</p>
             <div className='setup-bar'>
                 <div className={`size-number ${props.size === 8 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 8)}><p>8</p></div>
                 <div className={`size-number ${props.size === 9 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 9)}><p>9</p></div>
