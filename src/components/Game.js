@@ -37,7 +37,7 @@ export class Game extends Component {
                 },
                 battleship: {
                     number: 1,
-                    max: 3,
+                    max: 2,
                     minReached: false,
                     maxReached: false
                 },
@@ -55,7 +55,7 @@ export class Game extends Component {
                 },
                 destroyer: {
                     number: 1,
-                    max: 5,
+                    max: 4,
                     minReached: false,
                     maxReached: false
                 }
@@ -144,6 +144,7 @@ export class Game extends Component {
                 return cell.isShip ? acc2 + 1 : acc2;
             }, 0)
         }, 0);
+        window.scrollTo(0, 0)
         this.setState({
             gridA: newGame.playerA,
             gridB: newGame.playerB,
@@ -260,7 +261,7 @@ export class Game extends Component {
                 }
             }
         }
-        if (checkNumber > 9 && direction === 'up') {
+        if (checkNumber > 8 && direction === 'up') {
             for (let boat in boats) {
                 boats[boat].maxReached = true
             }

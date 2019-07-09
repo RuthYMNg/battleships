@@ -7,11 +7,13 @@ const Setup = props => {
             <h4 className='center'>Select Ocean Size</h4>
             <p className='mt-0'>Number of squares wide and high</p>
             <div className='setup-bar'>
+                <div className={`size-number ${props.size === 6 ? 'active-size' : 'inactive'} hidden-lg`} onClick={props.updateGridSize.bind(null, 6)}><p>6</p></div>
+                <div className={`size-number ${props.size === 7 ? 'active-size' : 'inactive'} hidden-lg`} onClick={props.updateGridSize.bind(null, 7)}><p>7</p></div>
                 <div className={`size-number ${props.size === 8 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 8)}><p>8</p></div>
                 <div className={`size-number ${props.size === 9 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 9)}><p>9</p></div>
                 <div className={`size-number ${props.size === 10 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 10)}><p>10</p></div>
-                <div className={`size-number ${props.size === 11 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 11)}><p>11</p></div>
-                <div className={`size-number ${props.size === 12 ? 'active-size' : 'inactive'}`} onClick={props.updateGridSize.bind(null, 12)}><p>12</p></div>
+                <div className={`size-number ${props.size === 11 ? 'active-size' : 'inactive'} hidden-xs`} onClick={props.updateGridSize.bind(null, 11)}><p>11</p></div>
+                <div className={`size-number ${props.size === 12 ? 'active-size' : 'inactive'} hidden-xs`} onClick={props.updateGridSize.bind(null, 12)}><p>12</p></div>
             </div>
         </div>
         <div>

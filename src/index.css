@@ -5,6 +5,10 @@ html {
   background-color: #005982;
 }
 
+body {
+  padding-bottom: 50px !important;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   color: white;
 }
@@ -13,6 +17,34 @@ h1, h2, h3, h4, h5, h6, p {
   font-family: 'Russo One';
   font-weight: normal;
 } 
+
+@media only screen and (max-width: 420px) {
+  h1 {
+    font-size: 50px !important;
+    margin-bottom: 0px !important;
+  }
+
+  h2 {
+    font-size: 40px !important;
+    margin: 0px !important;
+  }
+
+  h3 {
+    font-size: 30px !important;
+    margin: 0px !important;
+  }
+
+  h4 {
+    font-size: 21px !important;
+    margin: 0px !important;
+  }
+
+  h5 {
+    font-size: 15px !important;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+  }
+}
 
 h1 {
   font-family: 'Russo One';
@@ -49,24 +81,24 @@ h2, h3, h4, h5, h6, p {
   margin-top: 6px;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: #476b7bscale;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.gridContainer {
-  display: flex;
-  justify-content: center;
+@media only screen and (min-width: 800px) {
+  .gridContainer {
+    display: flex;
+    justify-content: center;
+  }
 }
+
+@media only screen and (max-width: 420px) {
+  .grid {
+    padding: 5px 0 5px 0 !important;
+  }
+}
+
 
 .grid {
   padding: 0 30px 30px 30px;
@@ -86,6 +118,14 @@ code {
   align-items: center;
   align-content: center;
   margin: 0;
+}
+
+@media only screen and (max-width: 420px) {
+  .cell {
+    height: 28px;
+    width: 28px;
+    border: 1px solid #005982;
+  }
 }
 
 .cell img {
@@ -154,6 +194,24 @@ p {
   margin-bottom: 10px;
 }
 
+@media only screen and (max-width: 420px) {
+  .hidden-xs {
+    visibility: hidden;
+    width: 0px !important;
+    margin: 0 !important;
+    height: 0px;
+  }
+}
+
+@media only screen and (min-width: 420px) {
+  .hidden-lg {
+    visibility: hidden;
+    width: 0px !important;
+    margin: 0 !important;
+    height: 0px;
+  }
+}
+
 .instructions {
   max-width: 80%;
   margin: 0 auto;
@@ -210,15 +268,17 @@ p {
 }
 
 .boat-info {
+  padding: 0 10px 10px 10px;
   display: flex;
   flex-direction: column;
-  padding: 0 10px 10px 10px;  
   align-items: center;
 }
 
-.boat-list {
-  display: flex;
-  justify-content: center;
+@media only screen and (min-width: 740px) {
+  .boat-list {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .icon {
