@@ -211,15 +211,12 @@ export class Game extends Component {
         })
     }
     computerGo() {
-        console.log('Computer is going.');
         if (this.state.win) {
             return;
         }
         const timer = 500 + Math.random() * 1000;
         setTimeout(() => {
             let strategy = computerStrategy(this.state.computerStrategy, this.state.gridA)
-            console.log('The strategy is:');
-            console.log(strategy);
             this.setState({
                 computerStrategy: strategy
             })

@@ -93,8 +93,12 @@ const Setup = props => {
     </div>
 };
 
-// Setup.propTypes = {
-//   setGame: propTypes.any.isRequired
-// };
+Setup.propTypes = {
+    size: propTypes.any.isRequired,
+    boats: propTypes.object.isRequired,
+    updateGridSize: propTypes.func.isRequired,
+    updateBoats: propTypes.func.isRequired,
+    toggleInstructions: propTypes.func.isRequired
+  };
 
 export default Setup;

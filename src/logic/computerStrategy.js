@@ -1,4 +1,3 @@
-const generateRandomCoordinates = require('./generateRandomCoordinates.js');
 const getStrategy = require('./getStrategy.js');
 
 const format = {
@@ -14,10 +13,7 @@ const computerStrategy = function (inputStrategy, grid) {
     }
 
     let strategy = inputStrategy ? Object.assign(inputStrategy) : format;
-    console.log('**********ENTERING COMP STRATEGY***************');
-
     if (strategy.next.length) {
-        console.log('Trying next priority');
         let keepGoing = true;
         while (keepGoing && strategy.next.length) {
             if (
@@ -52,7 +48,6 @@ const computerStrategy = function (inputStrategy, grid) {
                     keepGoing = false;
                     let lastTry = strategy.next[0].slice();
                     strategy.next.shift();
-                    console.log(strategy.next);
                     strategy.lastTry = lastTry;
                     return strategy;
                 } else {
@@ -78,12 +73,10 @@ const computerStrategy = function (inputStrategy, grid) {
             })
             return acc;
         }, []);
-        console.log(strategy.plan);
     }
 
     let keepGoing = true;
     while (keepGoing) {
-        console.log('Trying...');
         if (
             strategy.plan[0][0] >= 0 &&
             strategy.plan[0][1] >= 0 &&

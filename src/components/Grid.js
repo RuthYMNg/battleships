@@ -20,8 +20,12 @@ const Grid = props => {
     return rows;
 };
 
-// Grid.propTypes = {
-//   setGame: propTypes.any.isRequired
-// };
+Grid.propTypes = {
+  fire: propTypes.func.isRequired,
+  player: propTypes.string.isRequired,
+  win: propTypes.any.isRequired,
+  turn: propTypes.string.isRequired,
+  inDev: propTypes.bool.isRequired
+};
 
 export default Grid;

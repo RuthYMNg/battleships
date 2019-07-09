@@ -1,5 +1,6 @@
 import React from 'react';
-import Cell from './Cell'
+import Cell from './Cell';
+import propTypes from 'prop-types';
 
 const Row = props => {
     const cells = props.cells.map((el, i) => {
@@ -24,8 +25,12 @@ const Row = props => {
     );
 };
 
-// Row.propTypes = {
-//   setGame: propTypes.any.isRequired
-// };
+Row.propTypes = {
+    fire: propTypes.func.isRequired,
+    player: propTypes.string.isRequired,
+    win: propTypes.any.isRequired,
+    turn: propTypes.string.isRequired,
+    inDev: propTypes.bool.isRequired
+  };
 
 export default Row;
