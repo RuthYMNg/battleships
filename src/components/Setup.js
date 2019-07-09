@@ -19,11 +19,11 @@ const Setup = props => {
             <div className='boat-list'>
                 <div className='boat-info'>
                     <div className='setup-bar boat-container'>
-                        <div className='setup-boat carrier'>CA</div>
-                        <div className='setup-boat carrier'>CA</div>
-                        <div className='setup-boat carrier'>CA</div>
-                        <div className='setup-boat carrier'>CA</div>
-                        <div className='setup-boat carrier'>CA</div>
+                        <div className='setup-boat carrier'><p>CA</p></div>
+                        <div className='setup-boat carrier'><p>CA</p></div>
+                        <div className='setup-boat carrier'><p>CA</p></div>
+                        <div className='setup-boat carrier'><p>CA</p></div>
+                        <div className='setup-boat carrier'><p>CA</p></div>
                     </div>
                     <h5>CARRIER</h5>
                     <div className='setup-bar'>
@@ -34,10 +34,10 @@ const Setup = props => {
                 </div>
                 <div className='boat-info'>
                     <div className='setup-bar boat-container'>
-                        <div className='setup-boat battleship'>B</div>
-                        <div className='setup-boat battleship'>B</div>
-                        <div className='setup-boat battleship'>B</div>
-                        <div className='setup-boat battleship'>B</div>
+                        <div className='setup-boat battleship'><p>B</p></div>
+                        <div className='setup-boat battleship'><p>B</p></div>
+                        <div className='setup-boat battleship'><p>B</p></div>
+                        <div className='setup-boat battleship'><p>B</p></div>
                     </div>
                     <h5>BATTLESHIP</h5>
                     <div className='setup-bar'>
@@ -48,9 +48,9 @@ const Setup = props => {
                 </div>
                 <div className='boat-info'>
                     <div className='setup-bar boat-container'>
-                        <div className='setup-boat cruiser'>C</div>
-                        <div className='setup-boat cruiser'>C</div>
-                        <div className='setup-boat cruiser'>C</div>
+                        <div className='setup-boat cruiser'><p>C</p></div>
+                        <div className='setup-boat cruiser'><p>C</p></div>
+                        <div className='setup-boat cruiser'><p>C</p></div>
                     </div>
                     <h5>CRUISER</h5>
                     <div className='setup-bar'>
@@ -61,9 +61,9 @@ const Setup = props => {
                 </div>
                 <div className='boat-info'>
                     <div className='setup-bar boat-container'>
-                        <div className='setup-boat submarine'>S</div>
-                        <div className='setup-boat submarine'>S</div>
-                        <div className='setup-boat submarine'>S</div>
+                        <div className='setup-boat submarine'><p>S</p></div>
+                        <div className='setup-boat submarine'><p>S</p></div>
+                        <div className='setup-boat submarine'><p>S</p></div>
                     </div>
                     <h5>SUBMARINE</h5>
                     <div className='setup-bar'>
@@ -74,8 +74,8 @@ const Setup = props => {
                 </div>
                 <div className='boat-info'>
                     <div className='setup-bar boat-container'>
-                        <div className='setup-boat destroyer'>D</div>
-                        <div className='setup-boat destroyer'>D</div>
+                        <div className='setup-boat destroyer'><p>D</p></div>
+                        <div className='setup-boat destroyer'><p>D</p></div>
                     </div>
                     <h5>DESTROYER</h5>
                     <div className='setup-bar'>

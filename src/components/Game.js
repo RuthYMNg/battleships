@@ -89,10 +89,10 @@ export class Game extends Component {
             />
         }
         return <div>
-            {this.state.win ? <div className="pyro">
-    <div className="before"></div>
-    <div className="after"></div>
-</div> : <p></p>}
+            {this.state.win ? <div className={this.state.win === 'human' ? 'pyro' : 'explosion'}>
+                <div className="before"></div>
+                <div className="after"></div>
+            </div> : <p></p>}
             <div className='gridContainer'>
                 <div className='grid'>
                     <h4>Your grid</h4>
@@ -110,7 +110,7 @@ export class Game extends Component {
                 </div>
                 <div className='grid'>
                 <h4>Computer's grid</h4>
-                    {this.state.player === 'A' ? <h5 className='selectedPlayer'>Choose where to fire!</h5> : <h5 className='deselectedPlayer'>Choose where to fire!</h5>}
+                    {this.state.player === 'A' && !this.state.win ? <h5 className='selectedPlayer'>Choose where to fire!</h5> : <h5 className='deselectedPlayer'>Choose where to fire!</h5>}
                     <Grid
                         player='computer'
                         width={this.state.width}
@@ -124,7 +124,7 @@ export class Game extends Component {
                 </div>
             </div>
             {this.state.win ? <div>
-                <p>{this.state.win === "human" ? "You win!" : "The computer won :("}</p>
+                <p>{this.state.win === "human" ? "YOU WIN!" : "THE COMPUTER HAS DEFEATED YOU :("}</p>
                 <p className='button' onClick={this.reset}>Create a new game</p>
             </div> : this.state.player === 'A' ? <h5 className='selectedPlayer'>Your turn</h5> : <h5 className='selectedPlayer'>Computer thinking</h5>}
             {this.state.win ? <div></div> : <h5 className='button center' onClick={this.reset}>Quit</h5>}
