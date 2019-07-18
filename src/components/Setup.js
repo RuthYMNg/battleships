@@ -99,6 +99,6 @@ Setup.propTypes = {
     updateGridSize: propTypes.func.isRequired,
     updateBoats: propTypes.func.isRequired,
     toggleInstructions: propTypes.func.isRequired
-  };
+};
 
 export default Setup;
